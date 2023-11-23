@@ -18,7 +18,7 @@ func readbyte(r io.Reader) (rune, error) {
 }
 
 func main() {
-	defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
+	defer profile.Start(profile.MemProfile, profile.MemProfileRate(1), profile.ProfilePath(".")).Stop()
 	f, err := os.Open(os.Args[1])
 	if err != nil {
 		log.Fatalf("could not open file %q: %v", os.Args[1], err)
