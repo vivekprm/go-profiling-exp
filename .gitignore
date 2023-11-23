@@ -1,1 +1,4 @@
 *.pprof
+*.png
+mandelbrot
+main
