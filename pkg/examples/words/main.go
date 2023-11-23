@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"log"
@@ -25,8 +26,9 @@ func main() {
 
 	words := 0
 	inword := false
+	b := bufio.NewReader(f)
 	for {
-		r, err := readbyte(f)
+		r, err := readbyte(b)
 		if err == io.EOF {
 			break
 		}
