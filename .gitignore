@@ -1,4 +1,5 @@
 *.pprof
+*.out
 *.png
 mandelbrot
 main
