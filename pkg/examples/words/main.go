@@ -6,6 +6,8 @@ import (
 	"log"
 	"os"
 	"unicode"
+
+	"github.com/pkg/profile"
 )
 
 func readbyte(r io.Reader) (rune, error) {
@@ -15,6 +17,7 @@ func readbyte(r io.Reader) (rune, error) {
 }
 
 func main() {
+	defer profile.Start(profile.CPUProfile, profile.ProfilePath(".")).Stop()
 	f, err := os.Open(os.Args[1])
 	if err != nil {
 		log.Fatalf("could not open file %q: %v", os.Args[1], err)
