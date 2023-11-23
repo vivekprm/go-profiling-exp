@@ -24,3 +24,4 @@ go tool pprof -http=:8088 cpu.pprof
     - We are probably making too many syscall. 
         - In Go all our read and write are unbuffered by default.
         - To fix it we buffer it
+        - This one change improved time from 1.25s to 20ms
