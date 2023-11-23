@@ -42,3 +42,6 @@ go tool pprof -http=:8088 cpu.pprof
         - Now we can see that main readbyte is 1.2MB. Which means that memory usage is proportional to the data we feed it.
         - So why is it leaking?
             - It's leaking because we declare an array ```var buf [1]byte```, we slice that array into slice ```_, err := r.Read(buf[:])```, and we pass it to r.Read. Now what's the type of r? It's an io.Reader interface type. So the runtime and compiler don't know what read is actually going to be passed, could be file could be buffer or something else. We don't know what they are going to do with the content of the buffer we passed them. They might capture the address of one of the elements in the buffer and keep it. This forces this allocation to escape the heap and that's where all the memory allocation being reported. 
+            - One way to fix it is move buffer declaration our of readbytes and make it global variable. 
+                - So now instead of allocating a buffer on the stack which escapes the heap every single time we call readbyte, we are going to reuse that buffer. 
+                - Now it's comparable to wc
